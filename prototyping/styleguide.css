@@ -1,0 +1,159 @@
+:root {
+  --primaryColor: #0f94d2;
+  --secondaryColor: #a80030;
+  --blackColor: #202020;
+  --grayColor: #404040;
+  --lightGrayColor: #b0b0b0;
+  --whiteColor: #f0f0f0;
+}
+
+* {
+  box-sizing: border-box;
+  color: var(--blackColor);
+  font-family: "Roboto", sans-serif;
+  font-weight: 400;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  background-color: var(--whiteColor);
+}
+
+main {
+  margin: 3rem auto;
+  max-width: 80rem;
+  padding: 0 2rem;
+}
+
+h1,
+h2,
+h3 {
+  margin: 1.5rem 0;
+  font-family: "Red Hat Display", sans-serif;
+}
+
+p {
+  font-weight: 300;
+}
+
+/** COLOR **/
+.colorDisplayContainer {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+  gap: 1rem;
+  list-style: none;
+}
+
+.colorDisplay {
+  border-radius: 5px;
+  box-shadow: var(--lightGrayColor) 0 2px 0.5rem;
+  height: 9rem;
+  width: 16rem;
+}
+
+.colorDisplay p {
+  background-color: rgba(211, 211, 211, 0.75);
+  border-radius: 5px;
+  display: inline-block;
+  margin: 0.3rem;
+  padding: 0.3rem;
+}
+
+.colorDisplay p span {
+  color: rgb(75, 75, 75);
+  font-size: small;
+}
+
+/** TYPOS **/
+.titleExample {
+  font-family: "Red Hat Display", sans-serif;
+  font-size: 3rem;
+  font-weight: 400;
+  margin: 1rem 0;
+}
+
+.textExample {
+  font-family: "Roboto", sans-serif;
+  font-size: 2rem;
+  font-weight: 300;
+  margin: 1rem 0;
+}
+
+.lorem {
+  margin: 1rem 0;
+}
+
+/** INPUTS **/
+.inputs > * {
+  margin: 2rem 0;
+}
+
+.inputs button.primary {
+  background-color: var(--primaryColor);
+  border: none;
+  border-radius: 10px;
+  color: var(--whiteColor);
+  font-weight: 500;
+  padding: 0.5rem 1rem;
+  transition: all ease-out 200ms;
+}
+
+.inputs button.primary:hover {
+  background-color: var(--whiteColor);
+  color: var(--primaryColor);
+  cursor: pointer;
+  box-shadow: var(--primaryColor) 0 2px 0.25rem;
+}
+
+.inputs button.secondary {
+  background-color: var(--secondaryColor);
+  border: none;
+  border-radius: 10px;
+  color: var(--whiteColor);
+  font-weight: 500;
+  padding: 0.5rem 1rem;
+  transition: all ease-out 200ms;
+}
+
+.inputs button.secondary:hover {
+  background-color: var(--whiteColor);
+  color: var(--secondaryColor);
+  cursor: pointer;
+  box-shadow: var(--secondaryColor) 0 2px 0.25rem;
+}
+
+.inputs button.disabled {
+  background-color: var(--lightGrayColor);
+  border: none;
+  border-radius: 10px;
+  color: var(--gray);
+  font-weight: 500;
+  padding: 0.5rem 1rem;
+}
+
+.inputs button.disabled:hover {
+  cursor: not-allowed;
+}
+
+.inputs input.text {
+  background-color: var(--whiteColor);
+  border: none;
+  border-bottom: solid var(--primaryColor) 1px;
+  color: var(--blackColor);
+  padding: 0.6rem;
+  transition: all ease-out 200ms;
+}
+
+.inputs input.text:focus {
+  border: solid var(--primaryColor) 1px;
+  border-radius: 10px;
+  box-shadow: var(--primaryColor) 0 3px 0.1rem;
+  outline: none;
+}
+
+.inputs input.text::placeholder {
+  color: var(--primaryColor);
+  font-style: italic;
+}
