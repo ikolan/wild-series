@@ -1,0 +1,12 @@
+.navbar {
+    background-color: $primary;
+
+    .navbar-brand {
+        color: $white;
+        font-family: 'Red Hat Display', sans-serif;
+
+        &:hover {
+            color: $white;
+        }
+    }
+}
