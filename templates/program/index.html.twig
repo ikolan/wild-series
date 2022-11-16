@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% from "program/_program.html.twig" import programList %}
+{% from "_utils.html.twig" import link %}
+
+{% block title %}All programs
+{% endblock %}
+
+{% block body %}
+	<main class="container">
+		<h1>Toutes les séries de la table program :
+		</h1>
+		{{ link("Retour à l'accueil", path('app_index')) }}
+
+		{% if programs is not empty %}
+			{{ programList(programs) }}
+		{% else %}
+			Aucune série trouvée.
+		{% endif %}
+	</main>
+
+{% endblock %}

@@ -1,0 +1,15 @@
+.link {
+  background-color: transparentize($light-gray, 0.9);
+  border-radius: $light-border-radius;
+  color: $black;
+  margin: 0.3rem;
+  padding: 0.2rem 0.4rem;
+  text-decoration: none;
+  transition: background-color ease-out 100ms, box-shadow ease-out 100ms;
+
+  &:hover {
+    background-color: transparentize($light-gray, 0.7);
+    box-shadow: $light-gray 0 0 2px;
+    color: $black;
+  }
+}

@@ -8,10 +8,28 @@ $gray: #404040;
 $light-gray: #B0B0B0;
 $white: #F0F0F0;
 
+$light-border-radius: 0.3rem;
+$big-border-radius: 1rem;
+
 * {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
 }
 
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Red Hat Display', sans-serif;
+}
+
+p, a {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 300;
+}
+
+ul {
+    padding: 0;
+}
+
 @import "navbar";
+@import "program";
+@import "utils";
