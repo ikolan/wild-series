@@ -1,18 +1,31 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Série #{{ program.id }}{% endblock %}
+{% from "_utils.html.twig" import link %}
+
+{% block title %}
+	{{ program.title }}
+{% endblock %}
 
 {% block body %}
-    <div class="media">
-        <img class="align-self-start mr-3" src="{{program.poster}}" alt="{{ program.title }} poster">
-        <div class="media-body">
-            <h1 class="mt-0">{{ program.title }}</h1>
-            <p>{{ program.synopsis }}</p>
-            <p>Catégorie : {{ program.category.name }}</p>
-        </div>
-    </div>
-
-    <a href="{{ path('program_index') }}">
-        Retour à la liste des programmes
-    </a>
+	<main class="container">
+		{{ link("Retour à la liste des programmes", path('program_index')) }}
+		<div class="media">
+			<img class="align-self-start mr-3" src="{{program.poster}}" alt="{{ program.title }} poster">
+			<div class="media-body">
+				<h1 class="mt-0">{{ program.title }}</h1>
+				<p>{{ program.synopsis }}</p>
+				<p>Catégorie :
+					{{ program.category.name }}</p>
+			</div>
+		</div>
+		<div>
+			<ul>
+				{% for season in program.seasons %}
+					<li>
+						{{ link("Saison " ~ season.number, path('program_season_show', {programId: program.id, id: season.id})) }}
+					</li>
+				{% endfor %}
+			</ul>
+		</div>
+	</main>
 {% endblock %}

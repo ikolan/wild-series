@@ -2,7 +2,9 @@
 
 namespace App\DataFixtures;
 
+use App\Entity\Episode;
 use App\Entity\Program;
+use App\Entity\Season;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 
@@ -65,6 +67,27 @@ class ProgramFixtures extends Fixture
             $program->setSynopsis($programData["synopsis"]);
             $program->setPoster($programData["poster"]);
             $program->setCategory($this->getReference($programData["category"]));
+
+            $seasonAmount = rand(1, 15);
+            for ($seasonNumber = 1; $seasonNumber <= $seasonAmount; $seasonNumber++) {
+                $season = new Season();
+                $season->setNumber($seasonNumber);
+                $season->setYear(rand(1950, 2020));
+                $season->setDescription("");
+
+                $episodeAmount = rand(5, 30);
+                for ($episodeNumber = 1; $episodeNumber <= $episodeAmount; $episodeNumber++) {
+                    $episode = new Episode();
+                    $episode->setNumber($episodeNumber);
+                    $episode->setTitle("Episode " . $episodeNumber);
+                    $episode->setSynopsis("Synopsis of Episode " . $episodeNumber);
+                    $episode->setSeason($season);
+                    $manager->persist($episode);
+                }
+                $season->setProgram($program);
+                $manager->persist($season);
+            }
+
             $manager->persist($program);
         }
         $manager->flush();
