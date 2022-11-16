@@ -13,3 +13,37 @@
     color: $black;
   }
 }
+
+.dropdown-button {
+  background-color: $white;
+  border: solid $light-gray 1px;
+  border-radius: $light-border-radius;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0 0.2rem;
+
+  &.active {
+    svg {
+      transform: rotate(180deg);
+    }
+  }
+
+  &:hover {
+    cursor: pointer;
+  }
+
+  p {
+    margin: 0;
+    padding: 0.3rem;
+  }
+
+  svg {
+    margin: 0.2rem 0.5rem;
+    transition: transform ease-out 200ms;
+
+    polygon {
+      fill: $black;
+    }
+  }
+}

@@ -1,3 +1,12 @@
 {% macro link(name, href) %}
 	<a class="link" href="{{ href }}">{{ name }}</a>
 {% endmacro %}
+
+{% macro dropdownButton(name) %}
+	<div class="dropdown-button activable">
+		<p>{{ name }}</p>
+		<svg viewbox="0 0 100 100" width="10" height="10">
+			<polygon points="0,0 100,0 50,100" />
+		</svg>
+	</div>
+{% endmacro %}
