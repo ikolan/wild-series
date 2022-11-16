@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+
+{% from "_utils.html.twig" import link %}
+
+{% block title %}
+	All categories
+{% endblock %}
+
+{% block body %}
+	<main class="container">
+		<h1>Liste des catégories</h1>
+		{% if categories is not empty %}
+			<ul>
+				{% for category in categories %}
+					<li>
+                        {{ link(category.name, path('category_show', {id: category.id})) }}
+					</li>
+				{% endfor %}
+			</ul>
+		{% else %}
+			Auncune catégorie trouvée.
+		{% endif %}
+	</main>
+{% endblock %}

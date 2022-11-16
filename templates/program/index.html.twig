@@ -3,12 +3,14 @@
 {% from "program/_program.html.twig" import programList %}
 {% from "_utils.html.twig" import link %}
 
-{% block title %}All programs
+{% block title %}
+	All programs
 {% endblock %}
 
 {% block body %}
 	<main class="container">
-		<h1>Toutes les séries de la table program :
+		<h1>
+			Toutes les séries :
 		</h1>
 		{{ link("Retour à l'accueil", path('app_index')) }}
 
