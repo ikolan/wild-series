@@ -2,15 +2,14 @@
 
 namespace App\DataFixtures;
 
-use App\Entity\Episode;
 use App\Entity\Program;
-use App\Entity\Season;
 use Doctrine\Bundle\FixturesBundle\Fixture;
+use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
 
-class ProgramFixtures extends Fixture
+class ProgramFixtures extends Fixture implements DependentFixtureInterface
 {
-    private const PROGRAMS = [
+    public const PROGRAMS = [
         [
             "title" => "Pinocchio",
             "synopsis" => "La célèbre histoire de ce pantin de bois, Pinocchio, bien décidé à vivre la plus palpitante "
@@ -61,32 +60,13 @@ class ProgramFixtures extends Fixture
 
     public function load(ObjectManager $manager): void
     {
-        foreach (self::PROGRAMS as $programData) {
+        foreach (self::PROGRAMS as $index => $programData) {
             $program = new Program();
             $program->setTitle($programData["title"]);
             $program->setSynopsis($programData["synopsis"]);
             $program->setPoster($programData["poster"]);
             $program->setCategory($this->getReference($programData["category"]));
-
-            $seasonAmount = rand(1, 15);
-            for ($seasonNumber = 1; $seasonNumber <= $seasonAmount; $seasonNumber++) {
-                $season = new Season();
-                $season->setNumber($seasonNumber);
-                $season->setYear(rand(1950, 2020));
-                $season->setDescription("");
-
-                $episodeAmount = rand(5, 30);
-                for ($episodeNumber = 1; $episodeNumber <= $episodeAmount; $episodeNumber++) {
-                    $episode = new Episode();
-                    $episode->setNumber($episodeNumber);
-                    $episode->setTitle("Episode " . $episodeNumber);
-                    $episode->setSynopsis("Synopsis of Episode " . $episodeNumber);
-                    $episode->setSeason($season);
-                    $manager->persist($episode);
-                }
-                $season->setProgram($program);
-                $manager->persist($season);
-            }
+            $this->addReference('program_' . $index, $program);
 
             $manager->persist($program);
         }
