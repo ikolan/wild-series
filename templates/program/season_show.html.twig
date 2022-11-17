@@ -1,18 +1,33 @@
 {% extends "base.html.twig" %}
 
+{% from "_utils.html.twig" import link %}
+
 {% block title %}
-    Saison {{ season.number }} de {{ season.program.title }}
+	Saison
+	{{ season.number }}
+	de
+	{{ season.program.title }}
 {% endblock %}
 
 {% block body %}
-    <main class="container">
-    <h1>Saison {{ season.number }} de {{ season.program.title }}</h1>
-    <p>{{ season.year }}</p>
-    <p>{{ season.description }}</p>
-    <ul>
-        {% for episode in season.episodes %}
-            <li>{{ episode.number }} | {{ episode.title }}</li>
-        {% endfor %}
-    </ul>
-    </main>
+	<main class="container">
+		<h1>Saison
+			{{ season.number }}
+			de
+			{{ season.program.title }}</h1>
+		<p>{{ season.year }}</p>
+		<p>{{ season.description }}</p>
+		<ul>
+			{% for episode in season.episodes %}
+				<li>
+					{{ 
+                        link(
+                            "[" ~ episode.number ~ "] " ~ episode.title, 
+                            path('program_episode_show', {program: program.id, season: season.id, episode: episode.id})
+                        ) 
+                    }}
+				</li>
+			{% endfor %}
+		</ul>
+	</main>
 {% endblock %}
