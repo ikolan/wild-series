@@ -1,0 +1,39 @@
+{% extends "base.html.twig" %}
+
+{% block title %}
+	Ajouté un programme
+{% endblock %}
+
+{% block body %}
+	<main class="container">
+        <h1>Ajouté un programme</h1>
+
+		{{ form_start(form) }}
+
+		<div>
+			<label for="title">Titre</label>
+			{{ form_widget(form.title, {attr: {class: 'form-control', id: 'title'}}) }}
+		</div>
+
+		<div>
+			<label for="synopsis">Synopsis</label>
+			{{ form_widget(form.synopsis, {attr: {class: 'form-control', id: 'synopsis'}}) }}
+		</div>
+
+		<div>
+			<label for="poster">Poster</label>
+			{{ form_widget(form.poster, {attr: {class: 'form-control', id: 'poster'}}) }}
+		</div>
+
+		<div>
+			<label for="category">Catégorie</label>
+			{{ form_widget(form.category, {attr: {class: 'form-control', id: 'category'}}) }}
+		</div>
+
+        <div>
+            <button type="submit" class="btn btn-primary">Ajouter le programme</button>
+        </div>
+
+		{{ form_end(form) }}
+	</main>
+{% endblock %}
