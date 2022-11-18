@@ -48,7 +48,7 @@ class CategoryController extends AbstractController
     }
 
     #[Route('/show/{slug}', requirements: ['id' => '\d+'], methods: ["GET"], name: 'show')]
-    public function show(Category $category): Response
+    public function show(?Category $category): Response
     {
         if (is_null($category)) {
             throw $this->createNotFoundException();
