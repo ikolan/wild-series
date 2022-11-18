@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Category;
 use App\Form\CategoryType;
 use App\Repository\CategoryRepository;
+use App\Repository\ProgramRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -23,8 +24,8 @@ class CategoryController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', requirements: ['id' => '\d+'], methods: ["GET"], name: 'show')]
-    public function show(Category $category): Response
+    #[Route('/{slug}', requirements: ['id' => '\d+'], methods: ["GET"], name: 'show')]
+    public function show(Category $category, ProgramRepository $programRepository): Response
     {
         if (is_null($category)) {
             throw $this->createNotFoundException();

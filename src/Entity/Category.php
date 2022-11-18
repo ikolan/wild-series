@@ -15,8 +15,11 @@ class Category
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 255, unique: true)]
     private ?string $name = null;
+
+    #[ORM\Column(length: 255, unique: true)]
+    private ?string $slug = null;
 
     #[ORM\OneToMany(mappedBy: 'category', targetEntity: Program::class)]
     private $programs;
@@ -69,6 +72,18 @@ class Category
                 $program->setCategory(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getSlug(): ?string
+    {
+        return $this->slug;
+    }
+
+    public function setSlug(string $slug): self
+    {
+        $this->slug = $slug;
 
         return $this;
     }

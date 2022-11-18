@@ -13,7 +13,7 @@
 			<ul>
 				{% for category in categories %}
 					<li>
-                        {{ link(category.name, path('category_show', {id: category.id})) }}
+                        {{ link(category.name, path('category_show', {slug: category.slug})) }}
 					</li>
 				{% endfor %}
 			</ul>

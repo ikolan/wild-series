@@ -15,7 +15,7 @@ class ProgramFixtures extends Fixture implements DependentFixtureInterface
             "synopsis" => "La célèbre histoire de ce pantin de bois, Pinocchio, bien décidé à vivre la plus palpitante "
                           . "des aventures pour devenir un vrai petit garçon.",
             "poster" => "https://www.themoviedb.org/t/p/w600_and_h900_bestv2/nch8NTH45TBH4JyPuugttPzoxau.jpg",
-            "category" => "category_Fantastique"
+            "category" => "category_fantastique"
         ],
         [
             "title" => "Rick et Morty",
@@ -25,7 +25,7 @@ class ProgramFixtures extends Fixture implements DependentFixtureInterface
                           . "Ajoutés à la vie de famille déjà instable de Morty, ces événements n'amènent qu'un "
                           . "surcroît de stress pour Morty, à la maison et à l'école...",
             "poster" => "https://www.themoviedb.org/t/p/w600_and_h900_bestv2/s11re4xQLZ6pRPv2sqXnK8CCvGn.jpg",
-            "category" => "category_Animation"
+            "category" => "category_animation"
         ],
         [
             "title" => "Sonic 2",
@@ -36,7 +36,7 @@ class ProgramFixtures extends Fixture implements DependentFixtureInterface
                           . "s’assurer que l’émeraude ne tombe entre de mauvaises mains, Sonic fait équipe avec Tails. "
                           . "Commence alors un voyage à travers le monde, plein de péripéties.",
             "poster" => "https://www.themoviedb.org/t/p/w600_and_h900_bestv2/7RSCL6V8BlekgVnNPok6tLW50tP.jpg",
-            "category" => "category_Aventure"
+            "category" => "category_aventure"
         ],
         [
             "title" => "The Walking Dead",
@@ -45,7 +45,7 @@ class ProgramFixtures extends Fixture implements DependentFixtureInterface
                           . "survivre... Ensemble, ils vont devoir, tant bien que mal, faire face à ce nouveau monde, "
                           . "devenu méconnaissable, à travers leur périple dans le Sud profond des États-Unis.",
             "poster" => "https://www.themoviedb.org/t/p/w600_and_h900_bestv2/4UZzJ65UxR6AsKL6zjFWNYAKb3w.jpg",
-            "category" => "category_Horreur"
+            "category" => "category_horreur"
         ],
         [
             "title" => "The Takeover",
@@ -54,7 +54,7 @@ class ProgramFixtures extends Fixture implements DependentFixtureInterface
                           . "commettre un meurtre dans une vidéo truquée, elle doit échapper à la police et dépister "
                           . "les criminels qui la font chanter.",
             "poster" => "https://www.themoviedb.org/t/p/w600_and_h900_bestv2/g7rdcofib7HqdlDP1LT7Hmf1f2o.jpg",
-            "category" => "category_Action"
+            "category" => "category_action"
         ]
     ];
 
