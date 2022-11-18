@@ -12,6 +12,7 @@
 		<div>
 			<label for="name">Nom de la catégorie</label>
 			{{ form_widget(form.name, {attr: {class: 'form-control', id: 'name'}}) }}
+			{{ form_errors(form.name) }}
 		</div>
 
 		<div>
