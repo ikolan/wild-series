@@ -19,6 +19,17 @@
 			</div>
 		</div>
 		<div>
+			<strong>Acteurs :</strong>
+			<ul>
+				{% for actor in program.actors %}
+					<li>{{ link(actor.name, path('actor_show', {id: actor.id})) }}</li>
+				{% else %}
+					<li>Aucun acteur pour cette série</li>
+				{% endfor %}
+			</ul>
+		</div>
+		<div>
+			<strong>Seasons :</strong>
 			<ul>
 				{% for season in program.seasons %}
 					<li>

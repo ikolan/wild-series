@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{% from "_utils.html.twig" import link %}
+
+{% block title %}
+	{{ actor.name }}
+{% endblock %}
+
+{% block body %}
+	<main class="container">
+		<h1>{{ actor.name }}</h1>
+		<div>
+			<h2>Programs</h2>
+			<ul>
+				{% for program in actor.programs %}
+					<li>{{ link(program.title, path('program_show', {id: program.id})) }}</li>
+				{% endfor %}
+			</ul>
+		</div>
+	</main>
+{% endblock %}

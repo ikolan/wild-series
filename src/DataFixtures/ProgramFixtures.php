@@ -12,6 +12,7 @@ class ProgramFixtures extends Fixture implements DependentFixtureInterface
     public const PROGRAMS = [
         [
             "title" => "Pinocchio",
+            "slug" => "pinocchio",
             "synopsis" => "La célèbre histoire de ce pantin de bois, Pinocchio, bien décidé à vivre la plus palpitante "
                           . "des aventures pour devenir un vrai petit garçon.",
             "poster" => "https://www.themoviedb.org/t/p/w600_and_h900_bestv2/nch8NTH45TBH4JyPuugttPzoxau.jpg",
@@ -19,6 +20,7 @@ class ProgramFixtures extends Fixture implements DependentFixtureInterface
         ],
         [
             "title" => "Rick et Morty",
+            "slug" => "rick-et-morty",
             "synopsis" => "Rick est un scientifique âgé et déséquilibré qui a récemment renoué avec sa famille. Il "
                           . "passe le plus clair de son temps à entraîner son petit-fils Morty dans des aventures "
                           . "extraordinaires et dangereuses, à travers l'espace et dans des univers parallèles. "
@@ -29,6 +31,7 @@ class ProgramFixtures extends Fixture implements DependentFixtureInterface
         ],
         [
             "title" => "Sonic 2",
+            "slug" => "sonic-2",
             "synopsis" => "Bien installé dans la petite ville de Green Hills, Sonic veut maintenant prouver qu’il a "
                           . "l’étoffe d' un véritable héros. Un défi de taille se présente à lui quand le Dr Robotnik "
                           . "refait son apparition. Accompagné de son nouveau complice Knuckles, ils sont en quête "
@@ -40,6 +43,7 @@ class ProgramFixtures extends Fixture implements DependentFixtureInterface
         ],
         [
             "title" => "The Walking Dead",
+            "slug" => "the-walking-dead",
             "synopsis" => "Après une apocalypse, ayant transformé la quasi-totalité de la population en zombies, un "
                           . "groupe d'hommes et de femmes, mené par le shérif adjoint Rick Grimes, tente de "
                           . "survivre... Ensemble, ils vont devoir, tant bien que mal, faire face à ce nouveau monde, "
@@ -49,6 +53,7 @@ class ProgramFixtures extends Fixture implements DependentFixtureInterface
         ],
         [
             "title" => "The Takeover",
+            "slug" => "the-takeover",
             "synopsis" => "Ayant découvert un virus dangereux pour la vie privée des gens, une hackeuse éthique se "
                           . "retrouve au cœur d'une terrible histoire de corruption. Quand elle apparaît en train de "
                           . "commettre un meurtre dans une vidéo truquée, elle doit échapper à la police et dépister "
@@ -66,7 +71,7 @@ class ProgramFixtures extends Fixture implements DependentFixtureInterface
             $program->setSynopsis($programData["synopsis"]);
             $program->setPoster($programData["poster"]);
             $program->setCategory($this->getReference($programData["category"]));
-            $this->addReference('program_' . $index, $program);
+            $this->addReference('program_' . $programData["slug"], $program);
 
             $manager->persist($program);
         }
