@@ -9,7 +9,7 @@
 {% endmacro %}
 
 {% macro programLink(program) %}
-	<a class="program-link" href="{{ path("program_show", {id: program.id}) }}">
+	<a class="program-link" href="{{ path("program_show", {slug: program.slug}) }}">
 		<div class="poster" style="background-image: url({{ program.poster }});"></div>
 		<div class="content">
 			<h2 class="title">{{ program.title }}</h2>

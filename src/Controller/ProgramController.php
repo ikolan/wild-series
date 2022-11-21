@@ -6,11 +6,17 @@ use App\Entity\Episode;
 use App\Entity\Program;
 use App\Entity\Season;
 use App\Form\ProgramType;
+use App\Repository\EpisodeRepository;
 use App\Repository\ProgramRepository;
+use App\Repository\SeasonRepository;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Entity;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\String\Slugger\SluggerInterface;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 #[Route('/program', name: 'program_')]
 class ProgramController extends AbstractController
@@ -25,7 +31,7 @@ class ProgramController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', requirements: ['id' => '\d+'], methods: ["GET"], name: 'show')]
+    #[Route('/show/{slug}', methods: ["GET"], name: 'show')]
     public function show(?Program $program): Response
     {
         if (is_null($program)) {
@@ -38,15 +44,22 @@ class ProgramController extends AbstractController
     }
 
     #[Route(
-        '/{program}/seasons/{season}',
-        requirements: ['programId' => '\d+', 'id' => '\d+'],
+        '/show/{slug}/s{season}',
+        requirements: ["season" => "\d+"],
         methods: ["GET"],
         name: 'season_show'
     )]
-    #[Entity('program', options: ['id' => 'program'])]
-    #[Entity('season', options: ['id' => 'season'])]
-    public function seasonShow(Program $program, Season $season): Response
+    public function seasonShow(Program $program, int $season, SeasonRepository $seasonRepository): Response
     {
+        $season = $seasonRepository->findOneBy([
+            "program" => $program,
+            "number" => $season
+        ]);
+
+        if (is_null($season)) {
+            throw new NotFoundHttpException();
+        }
+
         return $this->render('program/season_show.html.twig', [
             'program' => $program,
             'season' => $season
@@ -54,20 +67,41 @@ class ProgramController extends AbstractController
     }
 
     #[Route(
-        '/{program}/seasons/{season}/episode/{episode}',
+        '/show/{slug}/s{season}/e{episode}-{episodeSlug}',
         requirements: [
-            'program' => '\d+',
             'season' => '\d+',
             'episode' => '\d+'
         ],
         methods: ["GET"],
         name: 'episode_show'
     )]
-    #[Entity('program', options: ['id' => 'program'])]
-    #[Entity('season', options: ['id' => 'season'])]
-    #[Entity('episode', options: ['id' => 'episode'])]
-    public function episodeShow(Program $program, Season $season, Episode $episode): Response
-    {
+    public function episodeShow(
+        Program $program,
+        int $season,
+        int $episode,
+        string $episodeSlug,
+        SeasonRepository $seasonRepository,
+        EpisodeRepository $episodeRepository
+    ): Response {
+        $season = $seasonRepository->findOneBy([
+            "program" => $program,
+            "number" => $season
+        ]);
+
+        if (is_null($season)) {
+            throw new NotFoundHttpException();
+        }
+
+        $episode = $episodeRepository->findOneBy([
+            "season" => $season,
+            "number" => $episode,
+            "slug" => $episodeSlug
+        ]);
+
+        if (is_null($episode)) {
+            throw new NotFoundHttpException();
+        }
+
         return $this->render('program/episode_show.html.twig', [
             'program' => $program,
             'season' => $season,
@@ -76,14 +110,22 @@ class ProgramController extends AbstractController
     }
 
     #[Route('/new', methods: ["GET", "POST"], name: "new")]
-    public function new(Request $request, ProgramRepository $programRepository): Response
-    {
+    public function new(
+        Request $request,
+        ProgramRepository $programRepository,
+        SluggerInterface $slugger,
+        ValidatorInterface $validator
+    ): Response {
         $program = new Program();
         $form = $this->createForm(ProgramType::class, $program);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $programRepository->save($program, true);
+        if ($form->isSubmitted()) {
+            $program->setSlug($slugger->slug($program->getTitle()));
+
+            if ($validator->validate($program)) {
+                $programRepository->save($program, true);
+            }
             return $this->redirectToRoute('program_index');
         }
 

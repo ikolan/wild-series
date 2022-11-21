@@ -18,8 +18,11 @@ class Episode
     #[ORM\JoinColumn(nullable: false)]
     private ?Season $season = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 255, unique: true)]
     private ?string $title = null;
+
+    #[ORM\Column(length: 255, nullable: false)]
+    private ?string $slug = null;
 
     #[ORM\Column]
     private ?int $number = null;
@@ -76,6 +79,18 @@ class Episode
     public function setSynopsis(string $synopsis): self
     {
         $this->synopsis = $synopsis;
+
+        return $this;
+    }
+
+    public function getSlug(): ?string
+    {
+        return $this->slug;
+    }
+
+    public function setSlug(string $slug): self
+    {
+        $this->slug = $slug;
 
         return $this;
     }

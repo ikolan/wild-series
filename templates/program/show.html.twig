@@ -33,7 +33,7 @@
 			<ul>
 				{% for season in program.seasons %}
 					<li>
-						{{ link("Saison " ~ season.number, path('program_season_show', {program: program.id, season: season.id})) }}
+						{{ link("Saison " ~ season.number, path('program_season_show', {slug: program.slug, season: season.number})) }}
 					</li>
 				{% endfor %}
 			</ul>

@@ -23,7 +23,7 @@
 					{{ 
                         link(
                             "[" ~ episode.number ~ "] " ~ episode.title, 
-                            path('program_episode_show', {program: program.id, season: season.id, episode: episode.id})
+                            path('program_episode_show', {slug: program.slug, season: season.number, episode: episode.number, episodeSlug: episode.slug})
                         ) 
                     }}
 				</li>

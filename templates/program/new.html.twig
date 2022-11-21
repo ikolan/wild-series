@@ -6,7 +6,7 @@
 
 {% block body %}
 	<main class="container">
-        <h1>Ajouté un programme</h1>
+		<h1>Ajouté un programme</h1>
 
 		{{ form_start(form) }}
 
@@ -34,9 +34,15 @@
 			{{ form_errors(form.category) }}
 		</div>
 
-        <div>
-            <button type="submit" class="btn btn-primary">Ajouter le programme</button>
-        </div>
+		<div>
+			<label for="actors">Actors</label>
+			{{ form_widget(form.actors, {attr: {class: 'form-control', id: 'actors'}}) }}
+			{{ form_errors(form.actors) }}
+		</div>
+
+		<div>
+			<button type="submit" class="btn btn-primary">Ajouter le programme</button>
+		</div>
 
 		{{ form_end(form) }}
 	</main>
