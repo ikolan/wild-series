@@ -26,7 +26,7 @@ class ProgramController extends AbstractController
     }
 
     #[Route('/{id}', requirements: ['id' => '\d+'], methods: ["GET"], name: 'show')]
-    public function show(Program $program): Response
+    public function show(?Program $program): Response
     {
         if (is_null($program)) {
             throw $this->createNotFoundException();
@@ -82,7 +82,7 @@ class ProgramController extends AbstractController
         $form = $this->createForm(ProgramType::class, $program);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted()) {
+        if ($form->isSubmitted() && $form->isValid()) {
             $programRepository->save($program, true);
             return $this->redirectToRoute('program_index');
         }

@@ -2,11 +2,13 @@
 
 namespace App\EventListener;
 
+use Symfony\Component\EventDispatcher\Attribute\AsEventListener;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Event\ExceptionEvent;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Twig\Environment;
 
+#[AsEventListener(event: 'kernel.exception')]
 class NotFoundListener
 {
     public function __construct(private Environment $twig)
