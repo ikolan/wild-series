@@ -3,12 +3,13 @@
 {% from "_utils.html.twig" import link %}
 
 {% block title %}
-	{{ actor.name }}
+	{{ actor.fullName }}
 {% endblock %}
 
 {% block body %}
 	<main class="container">
-		<h1>{{ actor.name }}</h1>
+		<h1>{{ actor.fullName }}</h1>
+		<p>Date de naissance: {{ actor.birthDate|date("d/m/Y") }}</p>
 		<div>
 			<h2>Programs</h2>
 			<ul>

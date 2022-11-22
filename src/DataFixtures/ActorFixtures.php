@@ -7,9 +7,14 @@ use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
 use Faker\Factory as FakerFactory;
+use Symfony\Component\String\Slugger\SluggerInterface;
 
 class ActorFixtures extends Fixture implements DependentFixtureInterface
 {
+    public function __construct(private SluggerInterface $slugger)
+    {
+    }
+
     public function load(ObjectManager $manager): void
     {
         $faker = FakerFactory::create();
@@ -21,7 +26,10 @@ class ActorFixtures extends Fixture implements DependentFixtureInterface
             shuffle($programs);
 
             $actor = new Actor();
-            $actor->setName($faker->name);
+            $actor->setFirstName($faker->firstName());
+            $actor->setLastName($faker->lastName());
+            $actor->setBirthDate(new \DateTimeImmutable($faker->date()));
+            $actor->setSlug($this->slugger->slug($actor->getFullName()));
             for ($programIndex = 0; $programIndex < $programCount; $programIndex++) {
                 $actor->addProgram($this->getReference("program_" . $programs[$programIndex]["slug"]));
             }

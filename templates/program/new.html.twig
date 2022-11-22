@@ -11,9 +11,9 @@
 		{{ form_start(form) }}
 
 		<div>
-			<label for="title">Titre</label>
-			{{ form_widget(form.title, {attr: {class: 'form-control', id: 'title'}}) }}
-			{{ form_errors(form.title) }}
+			{{ form_row(form.title, {label: "Titre", attr: {class: 'form-control', id: 'title'}}) }}
+			{#{{ form_widget(form.title, {attr: {class: 'form-control', id: 'title'}}) }}
+			{{ form_errors(form.title) }}#}
 		</div>
 
 		<div>

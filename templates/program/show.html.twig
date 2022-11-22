@@ -22,7 +22,7 @@
 			<strong>Acteurs :</strong>
 			<ul>
 				{% for actor in program.actors %}
-					<li>{{ link(actor.name, path('actor_show', {id: actor.id})) }}</li>
+					<li>{{ link(actor.fullName, path('actor_show', {slug: actor.slug})) }}</li>
 				{% else %}
 					<li>Aucun acteur pour cette série</li>
 				{% endfor %}

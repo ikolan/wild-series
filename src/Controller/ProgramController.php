@@ -121,7 +121,9 @@ class ProgramController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted()) {
-            $program->setSlug($slugger->slug($program->getTitle()));
+            if (trim($program->getTitle()) != "") {
+                $program->setSlug($slugger->slug($program->getTitle()));
+            }
 
             if ($validator->validate($program)) {
                 $programRepository->save($program, true);
