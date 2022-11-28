@@ -28,5 +28,14 @@
 			{% include "_navbar.html.twig" %}
 		</header>
 		{% block body %}{% endblock %}
+		<div class="flashes">
+			{% for category, messages in app.flashes %}
+				{% for message in messages %}
+					<div class="{{ category }}">
+						<p>{{ message }}</p>
+					</div>
+				{% endfor %}
+			{% endfor %}
+		</div>
 	</body>
 </html>

@@ -54,6 +54,13 @@ class EpisodeController extends AbstractController
                         ]);
 
                 $mailer->send($email);
+
+                $this->addFlash(
+                    'success',
+                    'L\'episode ' . $episode->getNumber() . ' de la saison ' . $episode->getSeason()->getNumber() .
+                    ' de ' . $episode->getSeason()->getProgram()->getTitle() . ' (' . $episode->getTitle() .
+                    ') à été ajouté'
+                );
             }
 
             return $this->redirectToRoute('app_episode_index', [], Response::HTTP_SEE_OTHER);

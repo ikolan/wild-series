@@ -1,0 +1,16 @@
+.flashes {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+
+    .success {
+        background-color: lightgreen;
+        border: solid green 1px;
+        border-radius: 0.3rem;
+        padding: 0.3rem;
+
+        p {
+            margin: 0;
+        }
+    }
+}

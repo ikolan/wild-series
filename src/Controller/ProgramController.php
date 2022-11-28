@@ -138,6 +138,8 @@ class ProgramController extends AbstractController
                             ]);
 
                 $mailer->send($email);
+
+                $this->addFlash("success", "La série " . $program->getTitle() . " à été ajouté.");
             }
             return $this->redirectToRoute('program_index');
         }
