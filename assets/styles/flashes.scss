@@ -1,16 +1,25 @@
 .flashes {
-    position: absolute;
-    top: 1rem;
-    right: 1rem;
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
 
-    .success {
-        background-color: lightgreen;
-        border: solid green 1px;
-        border-radius: 0.3rem;
-        padding: 0.3rem;
+  .success,
+  .danger {
+    border-radius: 0.3rem;
+    padding: 0.3rem;
 
-        p {
-            margin: 0;
-        }
+    p {
+      margin: 0;
     }
+  }
+
+  .success {
+    background-color: lightgreen;
+    border: solid green 1px;
+  }
+
+  .danger {
+    background-color: lightcoral;
+    border: solid red 1px;
+  }
 }
