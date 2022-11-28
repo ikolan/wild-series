@@ -2,18 +2,18 @@
 
 namespace App\Controller;
 
-use App\Entity\Episode;
 use App\Entity\Program;
-use App\Entity\Season;
 use App\Form\ProgramType;
 use App\Repository\EpisodeRepository;
 use App\Repository\ProgramRepository;
 use App\Repository\SeasonRepository;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Entity;
+use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Component\Mailer\MailerInterface;
+use Symfony\Component\Mime\Email;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\String\Slugger\SluggerInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
@@ -114,7 +114,8 @@ class ProgramController extends AbstractController
         Request $request,
         ProgramRepository $programRepository,
         SluggerInterface $slugger,
-        ValidatorInterface $validator
+        ValidatorInterface $validator,
+        MailerInterface $mailer
     ): Response {
         $program = new Program();
         $form = $this->createForm(ProgramType::class, $program);
@@ -127,6 +128,16 @@ class ProgramController extends AbstractController
 
             if ($validator->validate($program)) {
                 $programRepository->save($program, true);
+
+                $email = (new TemplatedEmail())->from($this->getParameter("mailer_from"))
+                            ->to($this->getParameter("mailer_admin"))
+                            ->subject('La série ' . $program->getTitle() . ' vient d\'être publiée !')
+                            ->htmlTemplate("email/new_program.html.twig")
+                            ->context([
+                                "program" => $program
+                            ]);
+
+                $mailer->send($email);
             }
             return $this->redirectToRoute('program_index');
         }

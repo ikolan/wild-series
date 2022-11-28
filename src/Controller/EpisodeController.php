@@ -5,11 +5,14 @@ namespace App\Controller;
 use App\Entity\Episode;
 use App\Form\EpisodeType;
 use App\Repository\EpisodeRepository;
+use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\String\Slugger\SluggerInterface;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 #[Route('/episode')]
 class EpisodeController extends AbstractController
@@ -23,14 +26,35 @@ class EpisodeController extends AbstractController
     }
 
     #[Route('/new', name: 'app_episode_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, EpisodeRepository $episodeRepository): Response
-    {
+    public function new(
+        Request $request,
+        EpisodeRepository $episodeRepository,
+        MailerInterface $mailer,
+        SluggerInterface $slugger,
+        ValidatorInterface $validator
+    ): Response {
         $episode = new Episode();
         $form = $this->createForm(EpisodeType::class, $episode);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $episodeRepository->save($episode, true);
+        if ($form->isSubmitted()) {
+            if (trim($episode->getTitle()) != "") {
+                $episode->setSlug($slugger->slug($episode->getTitle()));
+            }
+
+            if ($validator->validate($episode)) {
+                $episodeRepository->save($episode, true);
+
+                $email = (new TemplatedEmail())->from($this->getParameter("mailer_from"))
+                        ->to($this->getParameter("mailer_admin"))
+                        ->subject('L\'episode ' . $episode->getTitle() . ' vient d\'être publiée !')
+                        ->htmlTemplate("email/new_episode.html.twig")
+                        ->context([
+                            "episode" => $episode
+                        ]);
+
+                $mailer->send($email);
+            }
 
             return $this->redirectToRoute('app_episode_index', [], Response::HTTP_SEE_OTHER);
         }
@@ -70,7 +94,7 @@ class EpisodeController extends AbstractController
     #[Route('/{id}', name: 'app_episode_delete', methods: ['POST'])]
     public function delete(Request $request, Episode $episode, EpisodeRepository $episodeRepository): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$episode->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete' . $episode->getId(), $request->request->get('_token'))) {
             $episodeRepository->remove($episode, true);
         }
 

@@ -1,0 +1,16 @@
+{% apply inky_to_html %}
+
+<container>
+    <row class="title">
+        <column>
+            {% block title %}{% endblock %}
+        </column>
+    </row>
+    <row class="body">
+        <column>
+            {% block body %}{% endblock %}
+        </column>
+    </row>
+</container>
+
+{% endapply %}

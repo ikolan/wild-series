@@ -1,0 +1,17 @@
+{% extends "email/layout.html.twig" %}
+
+{% block title %}
+    <h1>
+        <center>
+            {{ program.title }}
+        </center>
+    </h1>
+{% endblock %}
+
+{% block body %}
+    <p>
+        <center>
+            La série {{ program.title }} vient d'être publiée sur Wild Séries !
+        </center>
+    </p>
+{% endblock %}

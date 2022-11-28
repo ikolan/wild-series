@@ -1,0 +1,17 @@
+{% extends "email/layout.html.twig" %}
+
+{% block title %}
+    <h1>
+        <center>
+            {{episode.title}} ({{ episode.season.program.title }})
+        </center>
+    </h1>
+{% endblock %}
+
+{% block body %}
+    <p>
+        <center>
+            L'épisode {{ episode.title }} vient d'être publiée dans la série {{ episode.season.program.title }} sur Wild Séries !
+        </center>
+    </p>
+{% endblock %}
