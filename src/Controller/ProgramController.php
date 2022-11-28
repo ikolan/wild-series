@@ -2,8 +2,11 @@
 
 namespace App\Controller;
 
+use App\Entity\Comment;
 use App\Entity\Program;
+use App\Form\CommentType;
 use App\Form\ProgramType;
+use App\Repository\CommentRepository;
 use App\Repository\EpisodeRepository;
 use App\Repository\ProgramRepository;
 use App\Repository\SeasonRepository;
@@ -72,16 +75,19 @@ class ProgramController extends AbstractController
             'season' => '\d+',
             'episode' => '\d+'
         ],
-        methods: ["GET"],
+        methods: ["GET", "POST"],
         name: 'episode_show'
     )]
     public function episodeShow(
+        Request $request,
         Program $program,
         int $season,
         int $episode,
         string $episodeSlug,
         SeasonRepository $seasonRepository,
-        EpisodeRepository $episodeRepository
+        EpisodeRepository $episodeRepository,
+        CommentRepository $commentRepository,
+        ValidatorInterface $validator
     ): Response {
         $season = $seasonRepository->findOneBy([
             "program" => $program,
@@ -102,10 +108,24 @@ class ProgramController extends AbstractController
             throw new NotFoundHttpException();
         }
 
-        return $this->render('program/episode_show.html.twig', [
+        $comment = new Comment();
+        $form = $this->createForm(CommentType::class, $comment);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted()) {
+            $comment->setUser($this->getUser());
+            $comment->setEpisode($episode);
+
+            if ($validator->validate($comment)) {
+                $commentRepository->save($comment, true);
+            }
+        }
+
+        return $this->renderForm('program/episode_show.html.twig', [
             'program' => $program,
             'season' => $season,
-            'episode' => $episode
+            'episode' => $episode,
+            'form' => $form
         ]);
     }
 

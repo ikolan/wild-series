@@ -14,5 +14,39 @@
 			de
 			{{ program.title }}</p>
 		<p>{{ episode.synopsis }}</p>
+		<div>
+			<h2>Commentaires</h2>
+
+			{% if app.user is not null %}
+				{{ form_start(form) }}
+				<div>
+					{{ form_row(form.rate) }}
+				</div>
+				<div>
+					{{ form_row(form.comment) }}
+				</div>
+				<button type="submit">Commenter</button>
+				{{ form_end(form) }}
+				<hr>
+			{% endif %}
+
+
+			{% if episode.comments is empty %}
+				<p>Aucun commentaires</p>
+			{% else %}
+				{% for comment in episode.comments|reverse %}
+					<div>
+						<p>
+							<strong>{{ comment.user.username }}</strong>
+						</p>
+						<p>Note:
+							{{ comment.rate }}
+							/ 10</p>
+						<p>{{ comment.comment }}</p>
+					</div>
+				{% endfor %}
+			{% endif %}
+
+		</div>
 	</main>
 {% endblock %}
